@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Jogos</title>
+    <link rel="stylesheet" href="../static/css/style.css"></head>
+<body>
+    <img src="../static/img/logo.png" alt="Logo" class="logo">
+    <h1>Lista de Jogos</h1>
+
+    <form method="POST">
+        <label for="nome">Nome do Jogo:</label><br>
+        <input type="text" id="nome" name="nome" required><br><br>
+        <label for="genero">Gênero:</label><br>
+        <input type="text" id="genero" name="genero" required><br><br>
+        <input type="submit" value="Adicionar Jogo">
+    </form>
+
+    <table>
+        <tr>
+            <th>Jogo</th>
+            <th>Gênero</th>
+            <th>Ações</th>
+        </tr>
+        {% for jogo in jogos %}
+        <tr>
+            <td>{{ jogo.nome }}</td>
+            <td>{{ jogo.genero }}</td>
+            <td>
+                <a href="{{ url_for('edit', index=loop.index0) }}">
+                    <button type="button" class="edit-btn">Editar</button>
+                </a>
+                <form method="POST" action="{{ url_for('delete', index=loop.index0) }}" style="display:inline;">
+                    <button type="submit" class="delete-btn">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
